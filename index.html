@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>cat iframe</title>
+</head>
+<body>
+
+<h1>i love cats</h1>
+<p>this is an image</p>
+
+<!-- <img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload='setCookie("localhost-fetchcookie", "localhost-fetchval", 5); loadedImage()'> -->
+<img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload=makeFrame()>
+
+
+<script type='text/javascript'>
+    function loadedImage() {
+      alert("image is loaded");
+      makeFrame();
+    }
+
+    function makeFrame() {
+      ifrm = document.createElement("IFRAME");
+      ifrm.setAttribute("src", "http://2leep.com:3000/cat-iframe.html");
+      ifrm.style.width = 640+"px";
+      ifrm.style.height = 480+"px";
+      document.body.appendChild(ifrm);
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+      var d = new Date();
+      d.setTime(d.getTime() + (exdays*24*60*60*1000));
+      var expires = "expires="+ d.toUTCString();
+      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+</script>
+
+</body>
+
+</html>
