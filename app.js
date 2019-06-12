@@ -6,6 +6,13 @@ var appRoot = process.cwd();
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+
+function prettyDate(time) {
+    var date = new Date(parseInt(time));
+    var localeSpecificTime = date.toLocaleTimeString();
+    return localeSpecificTime.replace(/:\d+ /, ' ');
+};
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -13,17 +20,10 @@ app.use(function(req, res, next) {
     next();
   });
 
-  function prettyDate2(time){
-    var date = new Date(parseInt(time));
-    var localeSpecificTime = date.toLocaleTimeString();
-    return localeSpecificTime.replace(/:\d+ /, ' ');
-};
-
 app.get('/', function(req, res, next) {
     var action = req.query.action;
-    console.log("request.headers.host: " + req.headers.host);
     if (action == 'setcookie') {
-        const cookieKeyAndVal = hostname+'='+prettyDate2(Date.now());
+        const cookieKeyAndVal = req.headers.host+'='+prettyDate(Date.now());
         res.setHeader('Set-Cookie', cookieKeyAndVal+ '; Path=/');
     }
  

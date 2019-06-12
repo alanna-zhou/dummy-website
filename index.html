@@ -6,14 +6,19 @@
 <body>
 
   <button type="button" onclick ="deleteAllCookies()">Reset cookies</button>
-  <br><br>
+  <button type="button" onclick ="clearLocalStorage()">Clear localStorage</button>
+
+
+  <br>
 
 <h1>2leep</h1>
 
 <img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload=makeFrame('http://2leep.com:3000/cat-iframe.html')>
+<iframe id = "iframe"></iframe>
 <br>
 
 <script type='text/javascript'>
+
     function deleteAllCookies() {
     var cookies = document.cookie.split(";");
     for (var i = 0; i < cookies.length; i++) {
@@ -24,20 +29,17 @@
         }
     }
 
+    function clearLocalStorage() {
+      localStorage.clear();
+    }
+
     function makeFrame(url) {
-      ifrm = document.createElement("IFRAME");
+      ifrm = document.getElementById("iframe");
       ifrm.setAttribute("src", url);
       ifrm.style.width = 400+"px";
       ifrm.style.height = 300+"px";
       document.body.appendChild(ifrm);
-      
-    }
-
-    function setCookie(cname, cvalue, exdays) {
-      var d = new Date();
-      d.setTime(d.getTime() + (exdays*24*60*60*1000));
-      var expires = "expires="+ d.toUTCString();
-      document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      document.body.appendChild(document.createElement('hr'));      
     }
 </script>
 
