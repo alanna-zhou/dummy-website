@@ -5,38 +5,32 @@
 </head>
 <body>
 
-<h1>i love cats</h1>
-<p>this is an image</p>
+  <button type="button" onclick ="deleteAllCookies()">Reset cookies</button>
+  <br><br>
 
-<!-- <img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload='setCookie("localhost-fetchcookie", "localhost-fetchval", 5); loadedImage()'> -->
-<img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload=makeFrame()>
-<button type="button" onclick ="deleteAllCookies()">Reset cookies</button>
+<h1>2leep</h1>
 
-
+<img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload=makeFrame('http://2leep.com:3000/cat-iframe.html')>
+<br>
 
 <script type='text/javascript'>
     function deleteAllCookies() {
     var cookies = document.cookie.split(";");
-
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i];
         var eqPos = cookie.indexOf("=");
         var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
-}
-
-    function loadedImage() {
-      alert("image is loaded");
-      makeFrame();
+        }
     }
 
-    function makeFrame() {
+    function makeFrame(url) {
       ifrm = document.createElement("IFRAME");
-      ifrm.setAttribute("src", "http://2leep.com:3000/cat-iframe.html");
-      ifrm.style.width = 480+"px";
-      ifrm.style.height = 480+"px";
+      ifrm.setAttribute("src", url);
+      ifrm.style.width = 400+"px";
+      ifrm.style.height = 300+"px";
       document.body.appendChild(ifrm);
+      
     }
 
     function setCookie(cname, cvalue, exdays) {
