@@ -1,30 +1,39 @@
-const http = require('http');
-const fs = require('fs');
-const url = require('url');
-var appRoot = process.cwd();
-
+var express = require('express');
+var app = express();
+app.use(express.static('public'));
 const hostname = '127.0.0.1';
-const port = 3000;
+var appRoot = process.cwd();
+var cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
-const server = http.createServer((req, res) => {
-  var request = url.parse(req.url, true);
-  var action = request.pathname;
-  console.log("action is " + action);
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    // tells client that it is allowed to set these types of headers in the request
+    next();
+  });
 
-  // if (action == '/cat.jpg') {
-  //   const cookieKeyAndVal = hostname+'-fetchcookie='+hostname+'-fetchvalue';
-  //   res.setHeader('Set-Cookie', cookieKeyAndVal+ 'Path=/cat.jpg; HttpOnly');
-  //   var img = fs.readFileSync(appRoot + '/cat.jpg');
-  //   res.writeHead(200, {'Content-Type': 'image/gif' });
-  //   res.end(img, 'binary');
-  // }
-  // else {
-    res.statusCode = 200;
+  function prettyDate2(time){
+    var date = new Date(parseInt(time));
+    var localeSpecificTime = date.toLocaleTimeString();
+    return localeSpecificTime.replace(/:\d+ /, ' ');
+};
+
+app.get('/', function(req, res, next) {
+    var action = req.query.action;
+    console.log("request.headers.host: " + req.headers.host);
+    if (action == 'setcookie') {
+        const cookieKeyAndVal = hostname+'='+prettyDate2(Date.now());
+        res.setHeader('Set-Cookie', cookieKeyAndVal+ '; Path=/');
+    }
+ 
     res.sendFile(appRoot + '/index.html');
-
-  // }
 });
 
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.get('/dummy', function(req, res, next) {
+    res.json('dummy')
+})
+
+app.listen(3000, function() {
+    console.log('listening on port 3000');
+})

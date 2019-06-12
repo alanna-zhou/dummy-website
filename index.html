@@ -10,9 +10,22 @@
 
 <!-- <img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload='setCookie("localhost-fetchcookie", "localhost-fetchval", 5); loadedImage()'> -->
 <img src = "http://2leep.com:3000/cat.jpg" alt="cat" style="width:400px; height:300px;" id="cat" onload=makeFrame()>
+<button type="button" onclick ="deleteAllCookies()">Reset cookies</button>
+
 
 
 <script type='text/javascript'>
+    function deleteAllCookies() {
+    var cookies = document.cookie.split(";");
+
+    for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
     function loadedImage() {
       alert("image is loaded");
       makeFrame();
@@ -21,7 +34,7 @@
     function makeFrame() {
       ifrm = document.createElement("IFRAME");
       ifrm.setAttribute("src", "http://2leep.com:3000/cat-iframe.html");
-      ifrm.style.width = 640+"px";
+      ifrm.style.width = 480+"px";
       ifrm.style.height = 480+"px";
       document.body.appendChild(ifrm);
     }

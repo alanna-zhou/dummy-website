@@ -4,80 +4,34 @@
 
 <h1>cat iframe</h1>
 <p>testing</p>
-<button type="button" onclick ="makeCall()">Click Me!</button>
-
-
-</body>
+<button type="button" onclick ="makeCall('http://2leep.com:3000/?action=setcookie')">Make request to set a cookie!</button>
+<button type="button" onclick ="makeCall('http://2leep.com:3000/')">Make another request!</button>
 
 <script type='text/javascript'>
-    const url = 'http://2leep.com:3000/?action=setcookie';
-    const google_url = "https://www.googleapis.com/books/v1/volumes?q=isbn:0747532699";
-    function makeCall() {
-        alert("reached");
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://2leep.com/dummy', true);
-        xhr.withCredentials = true;
-        // const cookieKeyAndVal = "cat-iframecookie=cat-iframeval"
-        // xhr.setRequestHeader('Set-Cookie', cookieKeyAndVal + 'Path=/')
-        xhr.send();
-    }
-
-    let h = new Headers();
-    // h.append('Accept', 'application/json');
-    h.append('Set-Cookie', 'didiactually=setthecookie;Path=/;')
-
+function makeCall(url) {
     let req = new Request(url, {
-        method: 'GET',
-        headers: h,
+        method: 'GET', 
+        headers: new Headers(),
         mode: 'cors'
     });
-
     fetch(req)
-        .then( (response) => {
+        .then((response) => {
             if (response.ok) {
-                // localStorage.setItem('alanna', 'test');
-                // var alanna = localStorage.getItem('alanna');
-                // var newCookie = "alanna=test";
-                // document.cookie = newCookie;
-                // alert("localStorage is " + alanna + ", and document.cookie is " + document.cookie);
                 return response.json();
-
-            } else {
-                throw new Error('Bad http stuff');
+            }
+            else {
+                throw new Error('Bad HTTP stuff');
             }
         })
-        .then ( (jsonData) => {
+        .then((jsonData) => {
             console.log(jsonData);
         })
-        .catch( (err) => {
+        .catch((err) => {
             console.log('error: ', err.message);
         });
 
-        let google_req = new Request(google_url, {
-        method: 'GET',
-        headers: h,
-        mode: 'cors'
-    }); 
-        fetch(google_req)
-        .then( (response) => {
-            if (response.ok) {
-                // localStorage.setItem('alanna', 'test');
-                // var alanna = localStorage.getItem('alanna');
-                // var newCookie = "alanna=test";
-                // document.cookie = newCookie;
-                // alert("localStorage is " + alanna + ", and document.cookie is " + document.cookie);
-                return response.json();
+}
 
-            } else {
-                throw new Error('Bad http stuff');
-            }
-        })
-        .then ( (jsonData) => {
-            console.log(jsonData);
-        })
-        .catch( (err) => {
-            console.log('error: ', err.message);
-        });
 </script>
-
+</body>
 </html>
