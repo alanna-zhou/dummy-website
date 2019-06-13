@@ -7,27 +7,9 @@
 
   <button type="button" onclick ="deleteAllCookies()">Reset cookies</button>
   <button type="button" onclick ="clearLocalStorage()">Clear localStorage</button>
-  <!-- <button type="button" onclick ="generate()">generate</button> -->
-
 <h1>dummy website</h1>
 
 <script type='text/javascript'>
- function generate() {
-    domains = ['127.0.0.1', 'thirdpartydomain.com', '2leep.com', 'activengage.com', '63squares.com', 'aamapi.com', 'causes.com', 'cashbeet.com'];
-    for (var i = 0; i < domains.length; i++) {
-      var img = document.createElement("IMG");
-      var url = "http://" + domains[i] + ":3000/";
-      var img_url = url + "puppy.jpg";
-      img.setAttribute("src", img_url);
-      img.alt = "puppy";
-      img.style="width:300px; height:300px;";
-      var iframe_url = url + "cat-iframe." + i + ".html";
-      // var iframe_url = url + "cat-iframe.html";
-      document.body.appendChild(img);
-      img.onload=makeFrame(domains[i], iframe_url);
-   }
-  }
-
   domains = ['127.0.0.1', 'thirdpartydomain.com', '2leep.com', 'activengage.com', '63squares.com', 'aamapi.com', 'causes.com', 'cashbeet.com'];
     for (var i = 0; i < domains.length; i++) {
       var img = document.createElement("IMG");
@@ -56,8 +38,6 @@
       localStorage.clear();
     }
 
-    // url should have query string: replace contents of file in this way
-
     function makeFrame(domainName, url) {
       ifrm = document.createElement("iframe");
       ifrmUrl = url + 
@@ -68,8 +48,6 @@
       document.body.appendChild(ifrm);
       ifrm.onload = addDivider(ifrm, domainName, url);
     }
-
-
 
     function addDivider(ifrm, domainName, url) {
       console.log("current url is " + window.location.href);
