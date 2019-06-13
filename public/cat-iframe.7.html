@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <div>
 
-<h1>2leep iframe</h1>
-<button type="button" onclick ="makeCall('http://2leep.com:3000/?action=setcookie')">Make request to set a cookie!</button>
-<button type="button" onclick ="makeCall('http://2leep.com:3000/')">Make another request!</button>
+<h1>causes.com iframe</h1>
+<button type="button" onclick ="makeCall('http://causes.com:3000/?action=setcookie')">Make request to set a cookie!</button>
+<button type="button" onclick ="makeCall('http://causes.com:3000/')">Make another request!</button>
 <h2>localStorage</h2>
 <p id='iframeInfo'>nothing here so far</p>
 
@@ -12,6 +13,11 @@
 <p id='cookieInfo'>nothing here so far</p>
 
 <script type='text/javascript'>
+   window.addEventListener("message", function(event) {
+        console.log(event);
+    }, false);
+
+    
     var localStorageCounter = 0;
     var documentCookieCounter = 0;
     function prettyDate(time) {
@@ -83,5 +89,6 @@
     }
 
 </script>
+</div>
 </body>
 </html>
